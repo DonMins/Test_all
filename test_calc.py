@@ -7,13 +7,13 @@ import src.calc
 
 class TestUM:
 
- def test_sum(self):
+ def test_even(self):
     assert src.calc.calculate('e', src.calc.Environment()) == math.e
 
- def test_su(self):
+ def test_func(self):
      assert src.calc.calculate('cos(0)', src.calc.Environment()) == 1.0
 
- def test_su1(self):
+ def test_matrix(self):
         assert src.calc.calculate('tr(T([2 1]) * [1 2])', src.calc.Environment()) == 4
 
  def test_set_func_(self):
