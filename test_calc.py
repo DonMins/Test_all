@@ -24,39 +24,17 @@ class TestUM:
  def test_undef_func(self):
      env = src.calc.Environment()
      with pytest.raises(RuntimeError):
-         assert env.get_function('f') == (False,(2, (['x', 'y'], ['apply', '+', ['x', 'y']])))
-
- def test_set_var_(self):
-     env = src.calc.Environment()
-     src.calc.calculate('x = 1', env)
-     assert env.get_var('x') == 1
-
- def test_del_var_(self):
-     env = src.calc.Environment()
-     src.calc.calculate('x = 1', env)
-     with pytest.raises(AssertionError):
-      assert env.del_var('x') == 1
+          env.get_function('f')
 
  def test_del_var(self):
      env = src.calc.Environment()
      with pytest.raises(AssertionError):
       assert env.del_var('x')
 
- def test_get_var_(self):
-     env = src.calc.Environment()
-     with pytest.raises(RuntimeError):
-      assert env.get_var('x')
-
  def test_set_func_error(self):
      env = src.calc.Environment()
      with pytest.raises(RuntimeError):
       env.set_function('sqrt',2, (['x', 'y'], ['apply', '+', ['x', 'y']]))
-
- def test_del_func(self):
-     env = src.calc.Environment()
-     src.calc.calculate('def f(x,y) = x + y', env)
-     with pytest.raises(AssertionError):
-      assert env.del_function('f')
 
  def test_del_func2(self):
      env = src.calc.Environment()
@@ -89,8 +67,8 @@ class TestUM:
 
  def test_set_data (self):
      env = src.calc.Environment()
-     env.set_data('gg')
-     assert env.get_data() == ['g', 'g']
+     env.set_data([['x'], ['y']])
+     assert env.get_data() == [['x'], ['y']]
 
  def test_unset_var(self):
      env = src.calc.Environment()
