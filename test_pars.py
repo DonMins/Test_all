@@ -35,8 +35,11 @@ class TestUM:
  def test_div(self):
   assert  src.pars.parse('(1 + 2) / 3')==['apply', '/', [['apply', '+', [1.0, 2.0]], 3.0]]
 
- def test_unit_div(self):
-  assert src.pars. parse('2 {kg/c}')==['with_units', 2.0, ['unit_div', ['unit', 'kg'], 'c']]
+ def test_atom_units(self):
+    assert src.pars.parse('x {(kg * m) / s}') == ['with_units', 'x', ['unit_div', ['unit_mul', 'kg', 'm'], 's']]
 
- def test_unit_mul(self):
-    assert  src.pars.parse('2 {kg*c}') ==['with_units', 2.0, ['unit_mul', ['unit', 'kg'], 'c']]
+ def test_convert(self):
+     assert src.pars.parse('x {kg} -> {mg}') == ['convert', ['with_units', 'x', 'kg'], 'mg']
+
+ def test_number_base(self):
+     assert src.pars.parse('<ff>16 + <101>2') == ['apply', '+', [255, 5]]
