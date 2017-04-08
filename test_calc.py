@@ -1,10 +1,11 @@
 import math
 import pytest
 import sys, os
+
 myPath = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, myPath + '/../')
 import src.calc
-
+import pint
 class TestUM:
 
  def test_even(self):
@@ -104,3 +105,13 @@ class TestUM:
      env = src.calc.Environment()
      src.calc.calculate('def f(x,y) = x + y', env)
      assert src.calc.calculate('f(2,3)', env)== 5
+
+ def test_convert(self):
+     env = src.calc.Environment()
+     ureg = pint.UnitRegistry()
+     assert src.calc.calculate('3.6{kg} -> {mg}', env) == 3600000.0*ureg('mg')
+
+ def test_make_units(self):
+     env = src.calc.Environment()
+     ureg = pint.UnitRegistry()
+     assert src.calc.calculate('3.6 {(kg * m) / s}->{(mg * m)/s}', env) == 3600000.0*ureg('(mg * m)/s')
